@@ -8359,11 +8359,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\Cristian\\GitHub\\SPatrickBack\\SPatrickBack\\SPatrickBack.csproj",
+      "projectUniqueName": "D:\\Cristian\\GitHub\\SPatrickBackGIT\\SPatrickBack\\SPatrickBack.csproj",
       "projectName": "SPatrickBack",
-      "projectPath": "D:\\Cristian\\GitHub\\SPatrickBack\\SPatrickBack\\SPatrickBack.csproj",
+      "projectPath": "D:\\Cristian\\GitHub\\SPatrickBackGIT\\SPatrickBack\\SPatrickBack.csproj",
       "packagesPath": "C:\\Users\\Didier\\.nuget\\packages\\",
-      "outputPath": "D:\\Cristian\\GitHub\\SPatrickBack\\SPatrickBack\\obj\\",
+      "outputPath": "D:\\Cristian\\GitHub\\SPatrickBackGIT\\SPatrickBack\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\Didier\\AppData\\Roaming\\NuGet\\NuGet.Config",

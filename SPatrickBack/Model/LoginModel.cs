@@ -8,8 +8,8 @@ namespace SPatrickBack.Authentication
         //[Required(ErrorMessage = "User Name is required")]
         //public string Username { get; set; }
 
-        [Required(ErrorMessage = "Email is required")]
-        public string Email { get; set; }
+        [Required(ErrorMessage = "Dni is required")]
+        public string Dni { get; set; }
 
         [Required(ErrorMessage = "Password is required")]
         public string Password { get; set; }

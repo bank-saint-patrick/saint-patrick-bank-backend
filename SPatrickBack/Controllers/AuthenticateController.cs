@@ -31,15 +31,19 @@ namespace SPatrickBack.Controllers
         [Route("register")]
         public async Task<IActionResult> Register([FromBody] RegisterModel model)
         {
-            var userExists = await userManager.FindByEmailAsync(model.Email);
+            var userExists = await userManager.FindByNameAsync(model.Dni);
             if (userExists != null)
                 return StatusCode(StatusCodes.Status500InternalServerError, new Response { Status = "Error", Message = "User already exists!" });
 
             ApplicationUser user = new ApplicationUser()
             {
+                //Dni= model.Dni,
+                FirstName = model.Nombre,
+                LastName = model.Apellido,
+                UserName = model.Dni,
                 Email = model.Email,
+                //PhoneNumber = model.PhoneNumber,
                 SecurityStamp = Guid.NewGuid().ToString(),
-                UserName = model.Username +" - "+ model.Dni
             };
             var result = await userManager.CreateAsync(user, model.Password);
             if (!result.Succeeded)
@@ -52,47 +56,7 @@ namespace SPatrickBack.Controllers
         [Route("login")]//username=email
         public async Task<IActionResult> Login([FromBody] LoginModel model)
         {
-            var user = await userManager.FindByEmailAsync(model.Email);
-            if (user != null && await userManager.CheckPasswordAsync(user, model.Password))
-            {
-                var userRoles = await userManager.GetRolesAsync(user);
-
-                var authClaims = new List<Claim>
-                {
-                    new Claim(ClaimTypes.Name, user.Email),
-                    new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
-                };
-
-                foreach (var userRole in userRoles)
-                {
-                    authClaims.Add(new Claim(ClaimTypes.Role, userRole));
-                }
-
-                var authSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["JWT:Secret"]));
-
-                var token = new JwtSecurityToken(
-                    issuer: _configuration["JWT:ValidIssuer"],
-                    audience: _configuration["JWT:ValidAudience"],
-                    //expires: DateTime.Now.AddHours(3),
-                    expires: DateTime.Now.AddMinutes(1),
-                    claims: authClaims,
-                    signingCredentials: new SigningCredentials(authSigningKey, SecurityAlgorithms.HmacSha256)
-                    );
-
-                return Ok(new
-                {
-                    token = new JwtSecurityTokenHandler().WriteToken(token),
-                    expiration = token.ValidTo
-                });
-            }
-            return Unauthorized();
-        }
-
-        [HttpPost]
-        [Route("login2")]
-        public async Task<IActionResult> Login2([FromBody] LoginModel model)
-        {
-            var user = await userManager.FindByNameAsync(model.Email);
+            var user = await userManager.FindByNameAsync(model.Dni);
             if (user != null && await userManager.CheckPasswordAsync(user, model.Password))
             {
                 var userRoles = await userManager.GetRolesAsync(user);
@@ -113,7 +77,8 @@ namespace SPatrickBack.Controllers
                 var token = new JwtSecurityToken(
                     issuer: _configuration["JWT:ValidIssuer"],
                     audience: _configuration["JWT:ValidAudience"],
-                    expires: DateTime.Now.AddHours(3),
+                    //expires: DateTime.Now.AddHours(3),
+                    expires: DateTime.Now.AddMinutes(10),
                     claims: authClaims,
                     signingCredentials: new SigningCredentials(authSigningKey, SecurityAlgorithms.HmacSha256)
                     );
@@ -132,7 +97,7 @@ namespace SPatrickBack.Controllers
         [Route("PUpdate")]
         public async Task<IActionResult> PUpdate([FromBody] PasswordUpdateModel model)
         {
-            var userExists = await userManager.FindByEmailAsync(model.Email);
+            var userExists = await userManager.FindByEmailAsync(model.Dni);
             if (userExists == null)
                 return StatusCode(StatusCodes.Status500InternalServerError, new Response { Status = "Error", Message = "User no exist!" });
 
@@ -142,6 +107,47 @@ namespace SPatrickBack.Controllers
 
             return Ok(new Response { Status = "Success", Message = "User Password update successfully!" });
         }
+
+        //[HttpPost]
+        //[Route("login2")]
+        //public async Task<IActionResult> Login2([FromBody] LoginModel model)
+        //{
+        //    var user = await userManager.FindByNameAsync(model.Dni);
+        //    if (user != null && await userManager.CheckPasswordAsync(user, model.Password))
+        //    {
+        //        var userRoles = await userManager.GetRolesAsync(user);
+
+        //        var authClaims = new List<Claim>
+        //        {
+        //            new Claim(ClaimTypes.Name, user.UserName),
+        //            new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
+        //        };
+
+        //        foreach (var userRole in userRoles)
+        //        {
+        //            authClaims.Add(new Claim(ClaimTypes.Role, userRole));
+        //        }
+
+        //        var authSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["JWT:Secret"]));
+
+        //        var token = new JwtSecurityToken(
+        //            issuer: _configuration["JWT:ValidIssuer"],
+        //            audience: _configuration["JWT:ValidAudience"],
+        //            expires: DateTime.Now.AddHours(3),
+        //            claims: authClaims,
+        //            signingCredentials: new SigningCredentials(authSigningKey, SecurityAlgorithms.HmacSha256)
+        //            );
+
+        //        return Ok(new
+        //        {
+        //            token = new JwtSecurityTokenHandler().WriteToken(token),
+        //            expiration = token.ValidTo
+        //        });
+        //    }
+        //    return Unauthorized();
+        //}
+
+
 
     }
 }

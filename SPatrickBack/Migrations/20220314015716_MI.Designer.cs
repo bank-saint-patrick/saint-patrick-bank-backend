@@ -10,7 +10,7 @@ using SPatrickBack.Authentication;
 namespace SPatrickBack.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20220313174410_MI")]
+    [Migration("20220314015716_MI")]
     partial class MI
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -169,6 +169,12 @@ namespace SPatrickBack.Migrations
 
                     b.Property<bool>("EmailConfirmed")
                         .HasColumnType("boolean");
+
+                    b.Property<string>("FirstName")
+                        .HasColumnType("text");
+
+                    b.Property<string>("LastName")
+                        .HasColumnType("text");
 
                     b.Property<bool>("LockoutEnabled")
                         .HasColumnType("boolean");

@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "JzR1cxvSahCFwSd0wqVfrxhMSJEf3gQgSw/QQ9LgRMYfH7r+GLv7aC9JJqec3ssPGhB9VlbgdD/yht/5jHYpdA==",
+  "dgSpecHash": "7b3Szya+vON7o1+JnxfqPie8WhHajV9rjJSGS5XvQrB6uFK/lOqI/KaNqcQH+ouGS6EVIgkD8Fb2GbvzQY1Fqg==",
   "success": true,
-  "projectFilePath": "D:\\Cristian\\GitHub\\SPatrickBack\\SPatrickBack\\SPatrickBack.csproj",
+  "projectFilePath": "D:\\Cristian\\GitHub\\SPatrickBackGIT\\SPatrickBack\\SPatrickBack.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Didier\\.nuget\\packages\\humanizer.core\\2.8.26\\humanizer.core.2.8.26.nupkg.sha512",
     "C:\\Users\\Didier\\.nuget\\packages\\microsoft.aspnetcore.authentication\\2.2.0\\microsoft.aspnetcore.authentication.2.2.0.nupkg.sha512",
