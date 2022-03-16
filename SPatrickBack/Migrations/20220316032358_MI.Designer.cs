@@ -10,7 +10,7 @@ using SPatrickBack.Authentication;
 namespace SPatrickBack.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20220314015716_MI")]
+    [Migration("20220316032358_MI")]
     partial class MI
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
