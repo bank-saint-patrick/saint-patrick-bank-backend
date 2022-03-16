@@ -33,23 +33,23 @@ namespace SPatrickBack.Controllers
         {
             var userExists = await userManager.FindByNameAsync(model.Dni);
             if (userExists != null)
-                return StatusCode(StatusCodes.Status500InternalServerError, new Response { Status = "Error", Message = "User already exists!" });
+                return StatusCode(StatusCodes.Status500InternalServerError, new Response { Status = "Error", Message = "usuario ya existe!" });
 
             ApplicationUser user = new ApplicationUser()
             {
                 //Dni= model.Dni,
-                FirstName = model.Nombre,
-                LastName = model.Apellido,
+                FirstName = model.FirstName,
+                LastName = model.LastName,
                 UserName = model.Dni,
                 Email = model.Email,
-                //PhoneNumber = model.PhoneNumber,
+                PhoneNumber = model.PhoneNumber,
                 SecurityStamp = Guid.NewGuid().ToString(),
             };
             var result = await userManager.CreateAsync(user, model.Password);
             if (!result.Succeeded)
-                return StatusCode(StatusCodes.Status500InternalServerError, new Response { Status = "Error", Message = "User creation failed! Please check user details and try again." });
+                return StatusCode(StatusCodes.Status500InternalServerError, new Response { Status = "Error", Message = "Creacion de usuario fallida! verifique y vuelvalo a intentar.  "+model });
 
-            return Ok(new Response { Status = "Success", Message = "User created successfully!" });
+            return Ok(new Response { Status = "Success", Message = "Usuario creado Satisfactoriamente!" });
         }
 
         [HttpPost]

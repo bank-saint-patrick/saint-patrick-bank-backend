@@ -4,20 +4,26 @@ namespace SPatrickBack.Authentication
 {
     public class RegisterModel
     {
-        public string Nombre { get; set; }
-        public string Apellido { get; set; }
-
-        [Required(ErrorMessage = "Dni is required")]
+        [Required(ErrorMessage = "Documento es requerido")]
         public string Dni { get; set; }
+
+        [Required(ErrorMessage = "Nombre es requerido")]
+        public string FirstName { get; set; }
+
+        [Required(ErrorMessage = "Apellido es requerido")]
+        public string LastName { get; set; }
 
         //[Required(ErrorMessage = "User Name is required")]
         //public string Username { get; set; }
 
         [EmailAddress]
-        [Required(ErrorMessage = "Email is required")]
+        [Required(ErrorMessage = "Email es requerido")]
         public string Email { get; set; }
 
-        [Required(ErrorMessage = "Password is required")]
+        [Required(ErrorMessage = "Telefono es requerido")]
+        public string PhoneNumber { get; set; }
+
+        [Required(ErrorMessage = "Contraseña es requerido")]
         public string Password { get; set; }
     }
 }
