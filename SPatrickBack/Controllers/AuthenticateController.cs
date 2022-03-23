@@ -46,6 +46,7 @@ namespace SPatrickBack.Controllers
                 SecurityStamp = Guid.NewGuid().ToString(),
             };
             var result = await userManager.CreateAsync(user, model.Password);
+            //var rolResult = await userManager.AddToRoleAsync(user, "Client");
             if (!result.Succeeded)
                 return StatusCode(StatusCodes.Status500InternalServerError, new Response { Status = "Error", Message = "Creacion de usuario fallida! verifique y vuelvalo a intentar.  "+model });
 
@@ -92,21 +93,7 @@ namespace SPatrickBack.Controllers
             return Unauthorized();
         }
 
-        [Authorize]
-        [HttpPost]
-        [Route("PUpdate")]
-        public async Task<IActionResult> PUpdate([FromBody] PasswordUpdateModel model)
-        {
-            var userExists = await userManager.FindByEmailAsync(model.Dni);
-            if (userExists == null)
-                return StatusCode(StatusCodes.Status500InternalServerError, new Response { Status = "Error", Message = "User no exist!" });
-
-            var result = await userManager.ChangePasswordAsync(userExists, model.currentPassword, model.newPassword);
-            if (!result.Succeeded)
-                return StatusCode(StatusCodes.Status500InternalServerError, new Response { Status = "Error", Message = "User Update password failed! Please check user details and try again." });
-
-            return Ok(new Response { Status = "Success", Message = "User Password update successfully!" });
-        }
+        
 
         //[HttpPost]
         //[Route("login2")]

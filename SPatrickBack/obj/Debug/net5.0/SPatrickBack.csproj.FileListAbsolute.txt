@@ -67,7 +67,6 @@ D:\Cristian\GitHub\SPatrickBack\SPatrickBack\obj\Debug\net5.0\ref\SPatrickBack.d
 D:\Cristian\GitHub\SPatrickBack\SPatrickBack\obj\Debug\net5.0\SPatrickBack.pdb
 D:\Cristian\GitHub\SPatrickBack\SPatrickBack\obj\Debug\net5.0\SPatrickBack.genruntimeconfig.cache
 D:\Cristian\GitHub\SPatrickBack\SPatrickBack\obj\Debug\net5.0\SPatrickBack.csproj.AssemblyReference.cache
-D:\Cristian\GitHub\SPatrickBackGIT\SPatrickBack\obj\Debug\net5.0\SPatrickBack.csproj.AssemblyReference.cache
 D:\Cristian\GitHub\SPatrickBackGIT\SPatrickBack\obj\Debug\net5.0\SPatrickBack.GeneratedMSBuildEditorConfig.editorconfig
 D:\Cristian\GitHub\SPatrickBackGIT\SPatrickBack\obj\Debug\net5.0\SPatrickBack.AssemblyInfoInputs.cache
 D:\Cristian\GitHub\SPatrickBackGIT\SPatrickBack\obj\Debug\net5.0\SPatrickBack.AssemblyInfo.cs
@@ -136,3 +135,4 @@ D:\Cristian\GitHub\SPatrickBackGIT\SPatrickBack\obj\Debug\net5.0\staticwebassets
 D:\Cristian\GitHub\SPatrickBackGIT\SPatrickBack\obj\Debug\net5.0\SPatrickBack.RazorTargetAssemblyInfo.cache
 D:\Cristian\GitHub\SPatrickBackGIT\SPatrickBack\obj\Debug\net5.0\SPatrickBack.csproj.CopyComplete
 D:\Cristian\GitHub\SPatrickBackGIT\SPatrickBack\obj\Debug\net5.0\SPatrickBack.genruntimeconfig.cache
+D:\Cristian\GitHub\SPatrickBackGIT\SPatrickBack\obj\Debug\net5.0\SPatrickBack.csproj.AssemblyReference.cache

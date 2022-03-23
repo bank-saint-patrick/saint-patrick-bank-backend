@@ -21,7 +21,7 @@ namespace SPatrickBack
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder.UseStartup<Startup>();
-                    webBuilder.UseUrls("Http:///:5024");
+                    webBuilder.UseUrls("http://*:81");
                 });
     }
 }
