@@ -10,7 +10,7 @@ using SPatrickBack.Authentication;
 namespace SPatrickBack.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20220316032358_MI")]
+    [Migration("20220325210431_MI")]
     partial class MI
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -221,6 +221,106 @@ namespace SPatrickBack.Migrations
                     b.ToTable("AspNetUsers");
                 });
 
+            modelBuilder.Entity("SPatrickBack.Model.ProducType", b =>
+                {
+                    b.Property<int>("ProductTypeID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                    b.Property<string>("nameProduct")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("ProductTypeID");
+
+                    b.ToTable("ProductTypes");
+                });
+
+            modelBuilder.Entity("SPatrickBack.Model.Product", b =>
+                {
+                    b.Property<int>("ProductID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                    b.Property<int>("ProductTypeID")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("cardNumber")
+                        .HasColumnType("text");
+
+                    b.Property<DateTime>("finishDate")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<string>("idUser")
+                        .HasColumnType("text");
+
+                    b.Property<int>("saldoCupo")
+                        .HasColumnType("integer");
+
+                    b.Property<DateTime>("startDate")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<bool>("state")
+                        .HasColumnType("boolean");
+
+                    b.HasKey("ProductID");
+
+                    b.HasIndex("ProductTypeID");
+
+                    b.ToTable("Products");
+                });
+
+            modelBuilder.Entity("SPatrickBack.Model.Transaction", b =>
+                {
+                    b.Property<int>("transactionID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                    b.Property<int?>("ProductID")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("productIDDestination")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("productIDOrigin")
+                        .HasColumnType("integer");
+
+                    b.Property<DateTime>("transactionDate")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<int>("transactionTypeID")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("transactionValue")
+                        .HasColumnType("integer");
+
+                    b.HasKey("transactionID");
+
+                    b.HasIndex("ProductID");
+
+                    b.HasIndex("transactionTypeID");
+
+                    b.ToTable("Transactions");
+                });
+
+            modelBuilder.Entity("SPatrickBack.Model.TransactionType", b =>
+                {
+                    b.Property<int>("TransactionTypeID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                    b.Property<string>("nameTransaction")
+                        .HasColumnType("text");
+
+                    b.HasKey("TransactionTypeID");
+
+                    b.ToTable("TransactionTypes");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
@@ -270,6 +370,39 @@ namespace SPatrickBack.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("SPatrickBack.Model.Product", b =>
+                {
+                    b.HasOne("SPatrickBack.Model.ProducType", "ProductType")
+                        .WithMany()
+                        .HasForeignKey("ProductTypeID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("ProductType");
+                });
+
+            modelBuilder.Entity("SPatrickBack.Model.Transaction", b =>
+                {
+                    b.HasOne("SPatrickBack.Model.Product", "product")
+                        .WithMany("Transactions")
+                        .HasForeignKey("ProductID");
+
+                    b.HasOne("SPatrickBack.Model.TransactionType", "transacType")
+                        .WithMany()
+                        .HasForeignKey("transactionTypeID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("product");
+
+                    b.Navigation("transacType");
+                });
+
+            modelBuilder.Entity("SPatrickBack.Model.Product", b =>
+                {
+                    b.Navigation("Transactions");
                 });
 #pragma warning restore 612, 618
         }

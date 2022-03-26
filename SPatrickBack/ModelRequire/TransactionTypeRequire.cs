@@ -2,10 +2,8 @@
 
 namespace SPatrickBack.Model
 {
-    public class TransactionType
+    public class TransactionTypeRequire
     {
-        [Key]
-        public int transactionTypeID { get; set; }
         public string nameTransaction { get; set; }
     }
 }

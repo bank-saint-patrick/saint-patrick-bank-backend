@@ -12,6 +12,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using SPatrickBack.Authentication;
+using SPatrickBack.Business;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -34,6 +35,8 @@ namespace SPatrickBack
         {
             // aca va la conexion al postgres
             services.AddControllers();
+            services.AddTransient<TransactionsBusiness>();
+            services.AddTransient<ProductBusiness>();
             services.AddDbContext<ApplicationDbContext>(options => 
             //options.UseSqlServer(Configuration.GetConnectionString("ConnStr")));
             options.UseNpgsql(Configuration.GetConnectionString("ConnStr")));

@@ -50,6 +50,32 @@ namespace SPatrickBack.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "ProductTypes",
+                columns: table => new
+                {
+                    ProductTypeID = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    nameProduct = table.Column<string>(type: "text", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ProductTypes", x => x.ProductTypeID);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "TransactionTypes",
+                columns: table => new
+                {
+                    TransactionTypeID = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    nameTransaction = table.Column<string>(type: "text", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_TransactionTypes", x => x.TransactionTypeID);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "AspNetRoleClaims",
                 columns: table => new
                 {
@@ -155,6 +181,61 @@ namespace SPatrickBack.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "Products",
+                columns: table => new
+                {
+                    ProductID = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    idUser = table.Column<string>(type: "text", nullable: true),
+                    saldoCupo = table.Column<int>(type: "integer", nullable: false),
+                    cardNumber = table.Column<string>(type: "text", nullable: true),
+                    startDate = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
+                    finishDate = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
+                    state = table.Column<bool>(type: "boolean", nullable: false),
+                    ProductTypeID = table.Column<int>(type: "integer", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Products", x => x.ProductID);
+                    table.ForeignKey(
+                        name: "FK_Products_ProductTypes_ProductTypeID",
+                        column: x => x.ProductTypeID,
+                        principalTable: "ProductTypes",
+                        principalColumn: "ProductTypeID",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Transactions",
+                columns: table => new
+                {
+                    transactionID = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    transactionTypeID = table.Column<int>(type: "integer", nullable: false),
+                    productIDOrigin = table.Column<int>(type: "integer", nullable: false),
+                    ProductID = table.Column<int>(type: "integer", nullable: true),
+                    productIDDestination = table.Column<int>(type: "integer", nullable: false),
+                    transactionValue = table.Column<int>(type: "integer", nullable: false),
+                    transactionDate = table.Column<DateTime>(type: "timestamp without time zone", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Transactions", x => x.transactionID);
+                    table.ForeignKey(
+                        name: "FK_Transactions_Products_ProductID",
+                        column: x => x.ProductID,
+                        principalTable: "Products",
+                        principalColumn: "ProductID",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Transactions_TransactionTypes_transactionTypeID",
+                        column: x => x.transactionTypeID,
+                        principalTable: "TransactionTypes",
+                        principalColumn: "TransactionTypeID",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
                 table: "AspNetRoleClaims",
@@ -191,6 +272,21 @@ namespace SPatrickBack.Migrations
                 table: "AspNetUsers",
                 column: "NormalizedUserName",
                 unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Products_ProductTypeID",
+                table: "Products",
+                column: "ProductTypeID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Transactions_ProductID",
+                table: "Transactions",
+                column: "ProductID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Transactions_transactionTypeID",
+                table: "Transactions",
+                column: "transactionTypeID");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -211,10 +307,22 @@ namespace SPatrickBack.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
+                name: "Transactions");
+
+            migrationBuilder.DropTable(
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
+
+            migrationBuilder.DropTable(
+                name: "Products");
+
+            migrationBuilder.DropTable(
+                name: "TransactionTypes");
+
+            migrationBuilder.DropTable(
+                name: "ProductTypes");
         }
     }
 }

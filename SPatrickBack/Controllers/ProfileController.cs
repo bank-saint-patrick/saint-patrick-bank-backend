@@ -34,23 +34,27 @@ namespace SPatrickBack.Controllers
         [Route("UserUpdate")]
         public async Task<IActionResult> UserUpdate([FromBody] UserUpdateModel model)
         {
-            var userExists = await userManager.FindByEmailAsync(model.Email);
-            
+            var currentUser = userManager.GetUserName(HttpContext.User);
+            var userExists = await userManager.FindByNameAsync(currentUser);
+
             if (userExists == null)
-                return StatusCode(StatusCodes.Status500InternalServerError, new Response { Status = "Error", Message = "User not exists!" });
+                return StatusCode(StatusCodes.Status500InternalServerError, new Response { Status = "Error",
+                    Message = "Usuario no existe!" });
 
             ApplicationUser user = new ApplicationUser();
           
             user = userExists;
-            //user.UserName = model.Username;
+            user.FirstName = model.FirstName;
+            user.LastName = model.LastName;        
             user.Email = model.Email;
             user.PhoneNumber = model.PhoneNumber;
             
             var result = await userManager.UpdateAsync(user);
             if (!result.Succeeded)
-                return StatusCode(StatusCodes.Status500InternalServerError, new Response { Status = "Error", Message = "User update failed! Please check user details and try again." });
+                return StatusCode(StatusCodes.Status500InternalServerError, new Response { Status = "Error",
+                    Message = "ACtualizacion de usuario fallida! VErifique datos y vuelvalo a intentar." });
 
-            return Ok(new Response { Status = "Success", Message = "User update successfully!" });
+            return Ok(new Response { Status = "Success", Message = "Usuario Actualizado Satisfactoriamente!" });
         }
 
         [Authorize]
@@ -58,22 +62,25 @@ namespace SPatrickBack.Controllers
         [Route("PassUpdate")]
         public async Task<IActionResult> PUpdate([FromBody] PasswordUpdateModel model)
         {
-            var userExists = await userManager.FindByEmailAsync(model.Dni);
+            var currentUser = userManager.GetUserName(HttpContext.User);
+            var userExists = await userManager.FindByNameAsync(currentUser);
             if (userExists == null)
-                return StatusCode(StatusCodes.Status500InternalServerError, new Response { Status = "Error", Message = "User no exist!" });
+                return StatusCode(StatusCodes.Status500InternalServerError, new Response { Status = "Error",
+                    Message = "Usuario no existe!" });
 
             var result = await userManager.ChangePasswordAsync(userExists, model.currentPassword, model.newPassword);
             if (!result.Succeeded)
-                return StatusCode(StatusCodes.Status500InternalServerError, new Response { Status = "Error", Message = "User Update password failed! Please check user details and try again." });
+                return StatusCode(StatusCodes.Status500InternalServerError, new Response { Status = "Error",
+                    Message = "Actualizacion de Password fallida! Verifique los detalles e intentelo de nuevo." });
 
-            return Ok(new Response { Status = "Success", Message = "User Password update successfully!" });
+            return Ok(new Response { Status = "Success", Message = "Password actualizado satisfactoriamente!" });
         }
 
-        [HttpPost("tokens/cancel")]
-        public async Task<IActionResult> CancelAccessToken()
-        {
-            return NoContent();
-        }
+        //[HttpPost("tokens/cancel")]
+        //public async Task<IActionResult> CancelAccessToken()
+        //{
+        //    return NoContent();
+        //}
 
     }
 }

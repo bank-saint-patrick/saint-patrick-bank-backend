@@ -135,4 +135,8 @@ D:\Cristian\GitHub\SPatrickBackGIT\SPatrickBack\obj\Debug\net5.0\staticwebassets
 D:\Cristian\GitHub\SPatrickBackGIT\SPatrickBack\obj\Debug\net5.0\SPatrickBack.RazorTargetAssemblyInfo.cache
 D:\Cristian\GitHub\SPatrickBackGIT\SPatrickBack\obj\Debug\net5.0\SPatrickBack.csproj.CopyComplete
 D:\Cristian\GitHub\SPatrickBackGIT\SPatrickBack\obj\Debug\net5.0\SPatrickBack.genruntimeconfig.cache
+D:\Cristian\GitHub\SPatrickBackGIT\SPatrickBack\bin\Debug\net5.0\System.Net.Http.Formatting.dll
+D:\Cristian\GitHub\SPatrickBackGIT\SPatrickBack\bin\Debug\net5.0\System.Web.Http.dll
+D:\Cristian\GitHub\SPatrickBackGIT\SPatrickBack\bin\Debug\net5.0\Newtonsoft.Json.dll
+D:\Cristian\GitHub\SPatrickBackGIT\SPatrickBack\bin\Debug\net5.0\Newtonsoft.Json.Bson.dll
 D:\Cristian\GitHub\SPatrickBackGIT\SPatrickBack\obj\Debug\net5.0\SPatrickBack.csproj.AssemblyReference.cache

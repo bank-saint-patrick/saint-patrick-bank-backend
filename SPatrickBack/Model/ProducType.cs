@@ -1,9 +1,12 @@
-﻿namespace SPatrickBack.Model
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace SPatrickBack.Model
 {
     public class ProducType
     {
-        public int idTypeProduct { get; set; }
+        [Key]
+        public int ProductTypeID { get; set; }
+        [Required]
         public string nameProduct { get; set; }
-        public Product prod { get; set; }
     }
 }

@@ -1,17 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace SPatrickBack.Model
 {
     public class Transaction
     {
-        public int idTransaction { get; set; }
-        public int idTypeTrans { get; set; }
-        public int idProductoOrigin { get; set; }
-        public int idProductoDestination { get; set; }
+        [Key]
+        public int transactionID { get; set; }
+        public int transactionTypeID { get; set; }
+        public int productIDOrigin { get; set; }
+        public Product product { get; set; }
+        public int productIDDestination { get; set; }
         public int transactionValue { get; set; }
         public DateTime transactionDate { get; set; }
-        public ICollection<TransactionType> transacType { get; set; }
+        public TransactionType transacType { get; set; }
 
     }
 }
