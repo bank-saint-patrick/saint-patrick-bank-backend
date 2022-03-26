@@ -1,0 +1,25 @@
+1. Abra visualstudio 2022 (2019) y dentro de el la solucion KonectaCooffe.sln
+
+2. Una vez abierta la solucion abra la carpeta de Migrations y elimine los archivos existentes de haberlos,
+si dentro de la carpeta no hay archivos omita este paso.
+
+3. Abra el archivo appsetting.json y remplace la linea 2 con la siguiente (complete los datos del servidor PostgresQL
+NOMBRE_SERVIDOR, NOMBRE_USUARIO, CONTRASEÑA):
+
+"ConnStr": "Server=localhost;Database=SaintPDB;Username=postgres;Password=Admin;",
+
+Guarde los cambios
+
+4. Dirijase a la consola de administracion de paquetes de nuget y escriba las siguiente linea:
+
+add-migration MI
+
+Una vez termine el proceso escriba la siguiente linea:
+
+update-database
+
+5. Terminado el proceso, verifique que se creo una DATABASE en su servidor con el nombre de "SaintPDB".
+
+6. Dirijase a Visual Studio y ejecute el programa. Se abrirar un explorador Web donde vera la solucion.
+
+Gracias por su tiempo, quedo atento a sus comentarios.
