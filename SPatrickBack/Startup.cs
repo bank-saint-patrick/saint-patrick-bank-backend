@@ -78,7 +78,7 @@ namespace SPatrickBack
                 swagger.SwaggerDoc("v1", new OpenApiInfo { 
                     
                     Title = "SPatrickBack", Version = "v1",
-                    Description = "Authentication and Authorization in ASP.NET 5 with JWT and Swagger"
+                    Description = "Autenticacion y Autorizacion en ASP.NET 5 con JWT y Swagger"
                 });
 
                 swagger.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme()
