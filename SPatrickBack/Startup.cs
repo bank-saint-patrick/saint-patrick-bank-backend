@@ -34,6 +34,7 @@ namespace SPatrickBack
         public void ConfigureServices(IServiceCollection services)
         {
             // aca va la conexion al postgres
+            services.AddCors();
             services.AddControllers();
             services.AddTransient<TransactionsBusiness>();
             services.AddTransient<ProductBusiness>();
@@ -71,6 +72,7 @@ namespace SPatrickBack
                     IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["JWT:Secret"]))
                 };
             });
+            //Adding Swagger
             services.AddSwaggerGen(swagger =>
             {
                 swagger.SwaggerDoc("v1", new OpenApiInfo { 
@@ -105,11 +107,20 @@ namespace SPatrickBack
                 });
 
             });
+            //Adding Cors
+
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            app.UseCors(options => {
+                //options.WithOrigins("http://*");
+                options.AllowAnyOrigin();
+                options.AllowAnyMethod();
+                options.AllowAnyHeader();
+            });
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
