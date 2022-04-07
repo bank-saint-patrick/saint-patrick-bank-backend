@@ -12,6 +12,7 @@ using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
+using SPatrickBack.ModelRequire;
 
 namespace SPatrickBack.Controllers
 {
@@ -20,12 +21,41 @@ namespace SPatrickBack.Controllers
     public class ProfileController : ControllerBase
     {
         private readonly UserManager<ApplicationUser> userManager;
-        
+
 
         public ProfileController(UserManager<ApplicationUser> userManager)
         {
             this.userManager = userManager;
         }
+
+        [Authorize]
+        [HttpGet]
+        [Route("GetUser")]
+        public async Task<IActionResult> GetUser()
+        {
+            var currentUser = userManager.GetUserName(HttpContext.User);
+            var userExists = await userManager.FindByNameAsync(currentUser);
+
+            if (userExists == null)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, new Response
+                {
+                    Status = "Error",
+                    Message = "Usuario no existe!"
+                });
+            }
+            else
+            {
+                ProfileRequire PR = new ProfileRequire();
+                PR.FirstName = userExists.FirstName;
+                PR.LastName = userExists.FirstName;
+                PR.PhoneNumber = userExists.PhoneNumber;
+                PR.Email = userExists.Email;
+                PR.Dni = userExists.UserName;
+                return Ok(PR);
+            }
+        }
+
 
         [Authorize]
         [HttpPost]
@@ -36,21 +66,27 @@ namespace SPatrickBack.Controllers
             var userExists = await userManager.FindByNameAsync(currentUser);
 
             if (userExists == null)
-                return StatusCode(StatusCodes.Status500InternalServerError, new Response { Status = "Error",
-                    Message = "Usuario no existe!" });
+                return StatusCode(StatusCodes.Status500InternalServerError, new Response
+                {
+                    Status = "Error",
+                    Message = "Usuario no existe!"
+                });
 
             ApplicationUser user = new ApplicationUser();
-          
+
             user = userExists;
             user.FirstName = model.FirstName;
-            user.LastName = model.LastName;        
+            user.LastName = model.LastName;
             user.Email = model.Email;
             user.PhoneNumber = model.PhoneNumber;
-            
+
             var result = await userManager.UpdateAsync(user);
             if (!result.Succeeded)
-                return StatusCode(StatusCodes.Status500InternalServerError, new Response { Status = "Error",
-                    Message = "ACtualizacion de usuario fallida! VErifique datos y vuelvalo a intentar." });
+                return StatusCode(StatusCodes.Status500InternalServerError, new Response
+                {
+                    Status = "Error",
+                    Message = "ACtualizacion de usuario fallida! VErifique datos y vuelvalo a intentar."
+                });
 
             return Ok(new Response { Status = "Success", Message = "Usuario Actualizado Satisfactoriamente!" });
         }
@@ -63,13 +99,19 @@ namespace SPatrickBack.Controllers
             var currentUser = userManager.GetUserName(HttpContext.User);
             var userExists = await userManager.FindByNameAsync(currentUser);
             if (userExists == null)
-                return StatusCode(StatusCodes.Status500InternalServerError, new Response { Status = "Error",
-                    Message = "Usuario no existe!" });
+                return StatusCode(StatusCodes.Status500InternalServerError, new Response
+                {
+                    Status = "Error",
+                    Message = "Usuario no existe!"
+                });
 
             var result = await userManager.ChangePasswordAsync(userExists, model.currentPassword, model.newPassword);
             if (!result.Succeeded)
-                return StatusCode(StatusCodes.Status500InternalServerError, new Response { Status = "Error",
-                    Message = "Actualizacion de Password fallida! Verifique los detalles e intentelo de nuevo." });
+                return StatusCode(StatusCodes.Status500InternalServerError, new Response
+                {
+                    Status = "Error",
+                    Message = "Actualizacion de Password fallida! Verifique los detalles e intentelo de nuevo."
+                });
 
             return Ok(new Response { Status = "Success", Message = "Password actualizado satisfactoriamente!" });
         }
