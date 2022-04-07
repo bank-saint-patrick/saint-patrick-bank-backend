@@ -10,7 +10,7 @@ using SPatrickBack.Authentication;
 namespace SPatrickBack.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20220325210431_MI")]
+    [Migration("20220407023854_MI")]
     partial class MI
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -221,6 +221,27 @@ namespace SPatrickBack.Migrations
                     b.ToTable("AspNetUsers");
                 });
 
+            modelBuilder.Entity("SPatrickBack.Model.OperationLog", b =>
+                {
+                    b.Property<int>("OperationId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                    b.Property<string>("OperationFunction")
+                        .HasColumnType("text");
+
+                    b.Property<int>("OperationProductID")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("OperationValue")
+                        .HasColumnType("integer");
+
+                    b.HasKey("OperationId");
+
+                    b.ToTable("OperationsLogs");
+                });
+
             modelBuilder.Entity("SPatrickBack.Model.ProducType", b =>
                 {
                     b.Property<int>("ProductTypeID")
@@ -282,6 +303,9 @@ namespace SPatrickBack.Migrations
                     b.Property<int?>("ProductID")
                         .HasColumnType("integer");
 
+                    b.Property<string>("concept")
+                        .HasColumnType("text");
+
                     b.Property<int>("productIDDestination")
                         .HasColumnType("integer");
 
@@ -308,7 +332,7 @@ namespace SPatrickBack.Migrations
 
             modelBuilder.Entity("SPatrickBack.Model.TransactionType", b =>
                 {
-                    b.Property<int>("TransactionTypeID")
+                    b.Property<int>("transactionTypeID")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("integer")
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
@@ -316,9 +340,33 @@ namespace SPatrickBack.Migrations
                     b.Property<string>("nameTransaction")
                         .HasColumnType("text");
 
-                    b.HasKey("TransactionTypeID");
+                    b.HasKey("transactionTypeID");
 
                     b.ToTable("TransactionTypes");
+                });
+
+            modelBuilder.Entity("SPatrickBack.Model.UserContact", b =>
+                {
+                    b.Property<int>("UserContactID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                    b.Property<string>("ContactName")
+                        .HasColumnType("text");
+
+                    b.Property<int>("ContactProductId")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("Image")
+                        .HasColumnType("text");
+
+                    b.Property<string>("idUser")
+                        .HasColumnType("text");
+
+                    b.HasKey("UserContactID");
+
+                    b.ToTable("UserContacts");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

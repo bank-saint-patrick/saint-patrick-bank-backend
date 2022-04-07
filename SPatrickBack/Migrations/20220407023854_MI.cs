@@ -50,6 +50,21 @@ namespace SPatrickBack.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "OperationsLogs",
+                columns: table => new
+                {
+                    OperationId = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    OperationProductID = table.Column<int>(type: "integer", nullable: false),
+                    OperationValue = table.Column<int>(type: "integer", nullable: false),
+                    OperationFunction = table.Column<string>(type: "text", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_OperationsLogs", x => x.OperationId);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "ProductTypes",
                 columns: table => new
                 {
@@ -66,13 +81,29 @@ namespace SPatrickBack.Migrations
                 name: "TransactionTypes",
                 columns: table => new
                 {
-                    TransactionTypeID = table.Column<int>(type: "integer", nullable: false)
+                    transactionTypeID = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     nameTransaction = table.Column<string>(type: "text", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_TransactionTypes", x => x.TransactionTypeID);
+                    table.PrimaryKey("PK_TransactionTypes", x => x.transactionTypeID);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "UserContacts",
+                columns: table => new
+                {
+                    UserContactID = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    idUser = table.Column<string>(type: "text", nullable: true),
+                    ContactProductId = table.Column<int>(type: "integer", nullable: false),
+                    ContactName = table.Column<string>(type: "text", nullable: true),
+                    Image = table.Column<string>(type: "text", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_UserContacts", x => x.UserContactID);
                 });
 
             migrationBuilder.CreateTable(
@@ -217,6 +248,7 @@ namespace SPatrickBack.Migrations
                     ProductID = table.Column<int>(type: "integer", nullable: true),
                     productIDDestination = table.Column<int>(type: "integer", nullable: false),
                     transactionValue = table.Column<int>(type: "integer", nullable: false),
+                    concept = table.Column<string>(type: "text", nullable: true),
                     transactionDate = table.Column<DateTime>(type: "timestamp without time zone", nullable: false)
                 },
                 constraints: table =>
@@ -232,7 +264,7 @@ namespace SPatrickBack.Migrations
                         name: "FK_Transactions_TransactionTypes_transactionTypeID",
                         column: x => x.transactionTypeID,
                         principalTable: "TransactionTypes",
-                        principalColumn: "TransactionTypeID",
+                        principalColumn: "transactionTypeID",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -307,7 +339,13 @@ namespace SPatrickBack.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
+                name: "OperationsLogs");
+
+            migrationBuilder.DropTable(
                 name: "Transactions");
+
+            migrationBuilder.DropTable(
+                name: "UserContacts");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");

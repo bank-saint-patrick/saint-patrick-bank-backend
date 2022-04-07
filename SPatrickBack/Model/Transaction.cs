@@ -13,6 +13,7 @@ namespace SPatrickBack.Model
         public Product product { get; set; }
         public int productIDDestination { get; set; }
         public int transactionValue { get; set; }
+        public string concept { get; set; }
         public DateTime transactionDate { get; set; }
         public TransactionType transacType { get; set; }
 

@@ -15,17 +15,10 @@ namespace SPatrickBack.Controllers
     [ApiController]
     public class TransactionController : ControllerBase
     {
-        private readonly ApplicationDbContext _context;
-        private readonly UserManager<ApplicationUser> userManager;
-        private readonly IConfiguration _configuration;
         private readonly TransactionsBusiness _transactionsBusiness;
 
-        public TransactionController(ApplicationDbContext context, UserManager<ApplicationUser> userManager,
-            IConfiguration configuration, TransactionsBusiness transactionsBusiness)
+        public TransactionController( TransactionsBusiness transactionsBusiness)
         {
-            _context = context;
-            this.userManager = userManager;
-            _configuration = configuration;
             _transactionsBusiness = transactionsBusiness;
         }
 
@@ -106,6 +99,7 @@ namespace SPatrickBack.Controllers
                 Tran.productIDOrigin = (int)model.productIDOrigin;
                 Tran.productIDDestination = (int)model.productIDDestination;
                 Tran.transactionValue = model.transactionValue;
+                Tran.concept = model.concept;
                 Tran.transactionDate = System.DateTime.Now;
 
                 var tranComplete = _transactionsBusiness.MakeTransaction(Tran);

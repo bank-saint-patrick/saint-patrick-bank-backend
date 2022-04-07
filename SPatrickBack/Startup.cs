@@ -37,6 +37,8 @@ namespace SPatrickBack
             services.AddControllers();
             services.AddTransient<TransactionsBusiness>();
             services.AddTransient<ProductBusiness>();
+            services.AddTransient<UserContactBusiness>();
+            services.AddTransient<OperationLogBusiness>();
             services.AddDbContext<ApplicationDbContext>(options => 
             //options.UseSqlServer(Configuration.GetConnectionString("ConnStr")));
             options.UseNpgsql(Configuration.GetConnectionString("ConnStr")));

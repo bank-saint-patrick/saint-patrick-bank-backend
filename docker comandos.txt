@@ -1,3 +1,5 @@
+Desde la terminal de visual estudio, y en la raiz del proyecto ejecutar:
+
 //Construir imagen del proyecto
 docker build -t spb_docker_image .
 

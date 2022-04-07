@@ -20,13 +20,11 @@ namespace SPatrickBack.Controllers
     public class ProfileController : ControllerBase
     {
         private readonly UserManager<ApplicationUser> userManager;
-        private readonly IConfiguration _configuration;
         
 
-        public ProfileController(UserManager<ApplicationUser> userManager, IConfiguration configuration)
+        public ProfileController(UserManager<ApplicationUser> userManager)
         {
             this.userManager = userManager;
-            _configuration = configuration;
         }
 
         [Authorize]

@@ -9,6 +9,7 @@ namespace SPatrickBack.Model
         public int? transactionID { get; set; }
         public int transactionTypeID { get; set; }
         public string? transactionTypeName { get; set; }
+        public string concept { get; set; }
         public int? productIDOrigin { get; set; }
         public int? productIDDestination { get; set; }
         public int transactionValue { get; set; }

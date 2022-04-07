@@ -19,7 +19,6 @@ namespace SPatrickBack.Controllers
     {
         private readonly ApplicationDbContext _context;
         private readonly UserManager<ApplicationUser> userManager;
-        private readonly IConfiguration _configuration;
         private readonly ProductBusiness _ProductBusiness;
 
         public ProductController(ApplicationDbContext context, UserManager<ApplicationUser> userManager,
@@ -27,20 +26,20 @@ namespace SPatrickBack.Controllers
         {
             _context = context;
             this.userManager = userManager;
-            _configuration = configuration;
             _ProductBusiness = productBusiness;
         }
 
         // GET: api/<ProductController>
         [Authorize]
         [HttpGet]
-        public IEnumerable<Product> Get()
+        [Route ("GetAllProductsByUser")]
+        public IEnumerable<Product> GetAllProductsByUser()
         {
             var currentUser = userManager.GetUserName(HttpContext.User);
             //var prod = _context.Products.Where(w => w.idUser.Equals(currentUser));
             //return prod;
 
-            return _ProductBusiness.GetAllProducts(currentUser);
+            return _ProductBusiness.GetProductsByUser(currentUser);
         }
 
         // GET api/<ProductController>/5

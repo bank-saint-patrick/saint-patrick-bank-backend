@@ -3,6 +3,7 @@ using SPatrickBack.Model;
 using System.Collections.Generic;
 using System.Linq;
 
+
 namespace SPatrickBack.Business
 {
     public class TransactionsBusiness
@@ -19,22 +20,23 @@ namespace SPatrickBack.Business
             var transac = _context.Transactions;
 
             List<TT2> LtranType = new List<TT2>();
-            foreach (var item in tranTypeC){
+            foreach (var item in tranTypeC)
+            {
                 TT2 transactionType = new TT2();
                 transactionType.transactionTypeID = item.transactionTypeID;
                 transactionType.nameTransaction = item.nameTransaction;
                 LtranType.Add(transactionType);
             }
 
-                List<TransactionRequire> Ltran = new List<TransactionRequire>();
+            List<TransactionRequire> Ltran = new List<TransactionRequire>();
 
             foreach (var item in transac)
             {
                 TransactionRequire Tran = new TransactionRequire();
                 Tran.transactionID = item.transactionID;
                 Tran.transactionTypeID = item.transactionTypeID;
-                Tran.transactionTypeName = LtranType.Find(z=> z.transactionTypeID.Equals(item.transactionTypeID)).nameTransaction;
-                    //_context.TransactionTypes.Find(item.transactionTypeID).nameTransaction;
+                Tran.transactionTypeName = LtranType.Find(z => z.transactionTypeID.Equals(item.transactionTypeID)).nameTransaction;
+                //_context.TransactionTypes.Find(item.transactionTypeID).nameTransaction;
                 Tran.productIDOrigin = item.productIDOrigin;
                 Tran.productIDDestination = item.productIDDestination;
                 Tran.transactionValue = item.transactionValue;
@@ -43,11 +45,11 @@ namespace SPatrickBack.Business
             }
             return Ltran;
         }
-        public TransactionRequire GetTransactionByID(int id) 
+        public TransactionRequire GetTransactionByID(int id)
         {
             var producX = _context.Transactions.Where(z => z.transactionID.Equals(id)).FirstOrDefault();
             var tranTypeC = _context.TransactionTypes;
-          
+
             List<TT2> LtranType = new List<TT2>();
             foreach (var item in tranTypeC)
             {
@@ -93,6 +95,7 @@ namespace SPatrickBack.Business
                 Tran.productIDOrigin = item.productIDOrigin;
                 Tran.productIDDestination = item.productIDDestination;
                 Tran.transactionValue = item.transactionValue;
+                Tran.concept = item.concept;
                 Tran.transactionDate = item.transactionDate;
                 Ltran.Add(Tran);
             }
@@ -144,10 +147,10 @@ namespace SPatrickBack.Business
                     result = MakeDeposit(transaction.productIDOrigin, transaction.productIDDestination, transaction.transactionValue);
                     break;
                 default:
-                    result = (new Response{Status = "Error", Message = "Opción no valida"});
+                    result = (new Response { Status = "Error", Message = "Opción no valida" });
                     break;
             }
-            return result;            
+            return result;
         }
         public Response SaveTransaction(Transaction transaction)
         {
@@ -157,7 +160,7 @@ namespace SPatrickBack.Business
                 _context.SaveChanges();
                 return (new Response { Status = "Success", Message = " Registro de Transaccion Guardada" });
             }
-            catch 
+            catch
             {
                 return (new Response { Status = "Error", Message = "Registro deTransaccion NO Guardada" });
             }
@@ -172,10 +175,16 @@ namespace SPatrickBack.Business
             {
                 if (origen.saldoCupo > value)
                 {
-                    origen.saldoCupo -= value;
-                    destino.saldoCupo += value;
                     try
                     {
+                        //Retirar cuenta de origen
+                        origen.saldoCupo -= value;
+                        LogWithdraw(origen.ProductID, value);
+
+                        //Ingresar cuenta de destino
+                        destino.saldoCupo += value;
+                        LogDeposit(origen.ProductID, value);
+
                         _context.Products.Update(origen);
                         _context.Products.Update(destino);
                         _context.SaveChanges();
@@ -218,9 +227,10 @@ namespace SPatrickBack.Business
 
             if (destino != null && value > 0)
             {
-                destino.saldoCupo += value;
                 try
                 {
+                    destino.saldoCupo += value;
+                    LogDeposit(origen.ProductID, value);
                     _context.Products.Update(destino);
                     _context.SaveChanges();
                     return (new Response
@@ -255,9 +265,10 @@ namespace SPatrickBack.Business
             {
                 if (origen.saldoCupo > value)
                 {
-                    origen.saldoCupo -= value;
                     try
                     {
+                        origen.saldoCupo -= value;
+                        LogWithdraw(origen.ProductID, value);
                         _context.Products.Update(origen);
                         _context.SaveChanges();
                         return (new Response
@@ -293,11 +304,30 @@ namespace SPatrickBack.Business
             });
         }
 
+        public void LogDeposit(int ProductId, int value)
+        {
+            OperationLog OpIngreso = new OperationLog();
+            OpIngreso.OperationProductID = ProductId;
+            OpIngreso.OperationFunction = "Ingreso";
+            OpIngreso.OperationValue = value;
+            _context.OperationsLogs.Add(OpIngreso);
+            _context.SaveChanges();
+        }
+        public void LogWithdraw(int ProductId, int value)
+        {
+            OperationLog OpRetiro = new OperationLog();
+            OpRetiro.OperationProductID = ProductId;
+            OpRetiro.OperationFunction = "Retiro";
+            OpRetiro.OperationValue = value;
+            _context.OperationsLogs.Add(OpRetiro);
+            _context.SaveChanges();
+        }
+
     }
 
     public enum TransactionType
     {
-        Transferencia=1,
+        Transferencia = 1,
         Consignacion,
         Retiro
 
@@ -305,7 +335,7 @@ namespace SPatrickBack.Business
 
     public class TT2
     {
-       public int transactionTypeID { get; set; }
+        public int transactionTypeID { get; set; }
         public string nameTransaction { get; set; }
     }
 }

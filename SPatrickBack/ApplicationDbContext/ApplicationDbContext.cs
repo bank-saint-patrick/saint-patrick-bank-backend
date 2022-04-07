@@ -14,8 +14,9 @@ namespace SPatrickBack.Authentication
         public DbSet<ProducType> ProductTypes { get; set; }
         public DbSet<Transaction> Transactions { get; set; }
         public DbSet<TransactionType> TransactionTypes { get; set; }
+        public DbSet<UserContact> UserContacts { get; set; }
 
-
+        public DbSet<OperationLog> OperationsLogs { get; set; }
     }
 
 }

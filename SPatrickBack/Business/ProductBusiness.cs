@@ -15,7 +15,7 @@ namespace SPatrickBack.Business
             _transactionsBusiness = transactionsBusiness;
         }
 
-        public IEnumerable<Product> GetAllProducts(string currentUser)
+        public IEnumerable<Product> GetProductsByUser(string currentUser)
         {
             var prod = _context.Products.Where(w => w.idUser.Equals(currentUser));
             return prod;
@@ -45,6 +45,7 @@ namespace SPatrickBack.Business
 
         }
 
+      
 
 
 
