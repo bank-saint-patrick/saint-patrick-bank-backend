@@ -10,7 +10,7 @@ using SPatrickBack.Authentication;
 namespace SPatrickBack.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20220407023854_MI")]
+    [Migration("20220408152145_MI")]
     partial class MI
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -171,6 +171,9 @@ namespace SPatrickBack.Migrations
                         .HasColumnType("boolean");
 
                     b.Property<string>("FirstName")
+                        .HasColumnType("text");
+
+                    b.Property<string>("Image")
                         .HasColumnType("text");
 
                     b.Property<string>("LastName")

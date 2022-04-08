@@ -47,6 +47,7 @@ namespace SPatrickBack.Controllers
             else
             {
                 ProfileRequire PR = new ProfileRequire();
+                PR.Image = userExists.Image;
                 PR.FirstName = userExists.FirstName;
                 PR.LastName = userExists.FirstName;
                 PR.PhoneNumber = userExists.PhoneNumber;
@@ -75,6 +76,7 @@ namespace SPatrickBack.Controllers
             ApplicationUser user = new ApplicationUser();
 
             user = userExists;
+            user.Image = model.Image;
             user.FirstName = model.FirstName;
             user.LastName = model.LastName;
             user.Email = model.Email;

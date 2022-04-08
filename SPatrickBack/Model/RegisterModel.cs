@@ -25,5 +25,7 @@ namespace SPatrickBack.Authentication
 
         [Required(ErrorMessage = "Contraseña es requerido")]
         public string Password { get; set; }
+
+        public string Image { get; set; }
     }
 }

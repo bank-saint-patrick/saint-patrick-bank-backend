@@ -39,6 +39,7 @@ namespace SPatrickBack.Controllers
             ApplicationUser user = new ApplicationUser()
             {
                 //Dni= model.Dni,
+                Image = model.Image,
                 FirstName = model.FirstName,
                 LastName = model.LastName,
                 UserName = model.Dni,
