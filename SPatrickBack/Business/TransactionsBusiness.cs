@@ -184,7 +184,7 @@ namespace SPatrickBack.Business
 
                         //Ingresar cuenta de destino
                         destino.saldoCupo += value;
-                        LogDeposit(origen.ProductID, value);
+                        LogDeposit(destino.ProductID, value);
 
                         _context.Products.Update(origen);
                         _context.Products.Update(destino);
