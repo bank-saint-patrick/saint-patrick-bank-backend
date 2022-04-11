@@ -67,6 +67,7 @@ namespace SPatrickBack.Business
             Tran.productIDDestination = producX.productIDDestination;
             Tran.transactionValue = producX.transactionValue;
             Tran.transactionDate = producX.transactionDate;
+            Tran.concept = producX.concept;
 
             return Tran;
         }
