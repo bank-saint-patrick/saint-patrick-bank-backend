@@ -34,7 +34,7 @@ namespace SPatrickBack.Business
             {
                 TransactionRequire Tran = new TransactionRequire();
                 Tran.transactionID = item.transactionID;
-                Tran.transactionTypeID = item.transactionTypeID;
+                Tran.transactionTypeID = (int)item.transactionTypeID;
                 Tran.transactionTypeName = LtranType.Find(z => z.transactionTypeID.Equals(item.transactionTypeID)).nameTransaction;
                 //_context.TransactionTypes.Find(item.transactionTypeID).nameTransaction;
                 Tran.productIDOrigin = item.productIDOrigin;
@@ -61,7 +61,7 @@ namespace SPatrickBack.Business
 
             TransactionRequire Tran = new TransactionRequire();
             Tran.transactionID = producX.transactionID;
-            Tran.transactionTypeID = producX.transactionTypeID;
+            Tran.transactionTypeID = (int)producX.transactionTypeID;
             Tran.transactionTypeName = LtranType.Find(z => z.transactionTypeID.Equals(producX.transactionTypeID)).nameTransaction;
             Tran.productIDOrigin = producX.productIDOrigin;
             Tran.productIDDestination = producX.productIDDestination;
@@ -90,7 +90,7 @@ namespace SPatrickBack.Business
             {
                 TransactionRequire Tran = new TransactionRequire();
                 Tran.transactionID = item.transactionID;
-                Tran.transactionTypeID = item.transactionTypeID;
+                Tran.transactionTypeID = (int)item.transactionTypeID;
                 Tran.transactionTypeName = LtranType.Find(z => z.transactionTypeID.Equals(item.transactionTypeID)).nameTransaction;
                 Tran.productIDOrigin = item.productIDOrigin;
                 Tran.productIDDestination = item.productIDDestination;
@@ -199,7 +199,7 @@ namespace SPatrickBack.Business
                         return (new Response
                         {
                             Status = "Error",
-                            Message = ""
+                            Message = "Fallo interno Registros"
                         });
                     }
                 }
@@ -310,6 +310,7 @@ namespace SPatrickBack.Business
             OpIngreso.OperationProductID = ProductId;
             OpIngreso.OperationFunction = "Ingreso";
             OpIngreso.OperationValue = value;
+            //OpIngreso.OperationId = 1;
             _context.OperationsLogs.Add(OpIngreso);
             _context.SaveChanges();
         }
@@ -319,6 +320,7 @@ namespace SPatrickBack.Business
             OpRetiro.OperationProductID = ProductId;
             OpRetiro.OperationFunction = "Retiro";
             OpRetiro.OperationValue = value;
+            //OpRetiro.OperationId = 1;
             _context.OperationsLogs.Add(OpRetiro);
             _context.SaveChanges();
         }

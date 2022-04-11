@@ -8,12 +8,12 @@ namespace SPatrickBack.Model
     {
         [Key]
         public int transactionID { get; set; }
-        public int transactionTypeID { get; set; }
+        public int? transactionTypeID { get; set; }
         public int productIDOrigin { get; set; }
-        public Product product { get; set; }
+        public Product? product { get; set; }
         public int productIDDestination { get; set; }
         public int transactionValue { get; set; }
-        public string concept { get; set; }
+        public string? concept { get; set; }
         public DateTime transactionDate { get; set; }
         public TransactionType transacType { get; set; }
 

@@ -139,4 +139,3 @@ D:\Cristian\GitHub\SPatrickBackGIT\SPatrickBack\bin\Debug\net5.0\System.Net.Http
 D:\Cristian\GitHub\SPatrickBackGIT\SPatrickBack\bin\Debug\net5.0\System.Web.Http.dll
 D:\Cristian\GitHub\SPatrickBackGIT\SPatrickBack\bin\Debug\net5.0\Newtonsoft.Json.dll
 D:\Cristian\GitHub\SPatrickBackGIT\SPatrickBack\bin\Debug\net5.0\Newtonsoft.Json.Bson.dll
-D:\Cristian\GitHub\SPatrickBackGIT\SPatrickBack\obj\Debug\net5.0\SPatrickBack.csproj.AssemblyReference.cache
