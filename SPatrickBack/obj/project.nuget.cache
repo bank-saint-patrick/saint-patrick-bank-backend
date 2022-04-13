@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "ieb56XeNBOOO0L5b2QNKjmd1Ye/iAb+CTCAxHYwfw4qURxxxR/vuATgpSeYtXfFjsHy3vMSdKUIJ8CvQvq/i6w==",
+  "dgSpecHash": "vKYidXI4gHr6qw0fIX61/NYsxAGLRt30zavCJ3xtjHhCaOXQf7RZyO2quu3tKe2MsVMIBf6r/5FVr5XishrytA==",
   "success": true,
   "projectFilePath": "D:\\Cristian\\GitHub\\SPatrickBackGIT\\SPatrickBack\\SPatrickBack.csproj",
   "expectedPackageFiles": [
@@ -175,8 +175,7 @@
     "C:\\Users\\Didier\\.nuget\\packages\\system.xml.readerwriter\\4.3.0\\system.xml.readerwriter.4.3.0.nupkg.sha512",
     "C:\\Users\\Didier\\.nuget\\packages\\system.xml.xdocument\\4.3.0\\system.xml.xdocument.4.3.0.nupkg.sha512",
     "C:\\Users\\Didier\\.nuget\\packages\\system.xml.xmldocument\\4.3.0\\system.xml.xmldocument.4.3.0.nupkg.sha512",
-    "C:\\Users\\Didier\\.nuget\\packages\\system.xml.xmlserializer\\4.3.0\\system.xml.xmlserializer.4.3.0.nupkg.sha512",
-    "C:\\Users\\Didier\\.nuget\\packages\\microsoft.netcore.app.host.win-x64\\5.0.13\\microsoft.netcore.app.host.win-x64.5.0.13.nupkg.sha512"
+    "C:\\Users\\Didier\\.nuget\\packages\\system.xml.xmlserializer\\4.3.0\\system.xml.xmlserializer.4.3.0.nupkg.sha512"
   ],
   "logs": [
     {

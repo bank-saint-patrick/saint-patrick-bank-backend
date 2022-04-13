@@ -1,5 +1,6 @@
 ﻿using SPatrickBack.Authentication;
 using SPatrickBack.Model;
+using SPatrickBack.ModelRequire;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -131,6 +132,50 @@ namespace SPatrickBack.Business
                 Ltran.Add(Tran);
             }
             return Ltran;
+        }
+
+        public List<TransferRequire> GetTrasferRequireByProductID(int productid)
+        {
+            List<TransferRequire> Transfer = new List<TransferRequire>();
+            try
+            {
+                var producEgreso = _context.Transactions.Where(z => z.productIDOrigin.Equals(productid)).ToList();
+                var producIngreso = _context.Transactions.Where(z => z.productIDDestination.Equals(productid)).ToList();
+
+                foreach (var item in producEgreso)
+                {
+                    TransferRequire Tr = new TransferRequire();
+                    Tr.transferID = item.transactionID;
+                    Tr.transactionDate = item.transactionDate;
+                    Tr.productIDOrigin = item.productIDOrigin;
+                    Tr.productIDDestination = item.productIDDestination;
+                    Tr.concepto = item.concept;
+                    Tr.transactionValue = item.transactionValue;
+                    Tr.transactionDate = item.transactionDate;
+                    Tr.tipo = "Egreso";
+                    Transfer.Add(Tr);
+                }
+
+                foreach (var item in producIngreso)
+                {
+                    TransferRequire Tr = new TransferRequire();
+                    Tr.transferID = item.transactionID;
+                    Tr.transactionDate = item.transactionDate;
+                    Tr.productIDOrigin = item.productIDOrigin;
+                    Tr.productIDDestination = item.productIDDestination;
+                    Tr.concepto = item.concept;
+                    Tr.transactionValue = item.transactionValue;
+                    Tr.transactionDate = item.transactionDate;
+                    Tr.tipo = "Ingreso";
+                    Transfer.Add(Tr);
+                }
+
+            }
+            catch
+            { 
+            }
+
+            return Transfer;
         }
 
         public Response MakeTransaction(Transaction transaction)

@@ -6,6 +6,7 @@ using Microsoft.Extensions.Configuration;
 using SPatrickBack.Authentication;
 using SPatrickBack.Business;
 using SPatrickBack.Model;
+using SPatrickBack.ModelRequire;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -53,27 +54,20 @@ namespace SPatrickBack.Controllers
         //    return _transactionsBusiness.GetTransactionByID(id);
         //}
 
+        //[Authorize]
+        [Route ("[action]/{TransferByproductid}")]
+        [HttpGet]
+        public List<TransferRequire> GetTransferByProducId(int TransferByproductid)
+        {
+            return _transactionsBusiness.GetTrasferRequireByProductID(TransferByproductid);
+
+        }
+
         [Authorize]
         [HttpGet("{productid}")]
-        //[Route ("[action]")]
+        
         public List<TransactionRequire> GetByProducId(int productid)
         {
-            ////var currentUser = userManager.GetUserName(HttpContext.User);
-            //var producX = _context.Transactions.Where(z => z.productIDOrigin.Equals(id)).ToList();
-            //List<TransactionRequire> Ltran = new List<TransactionRequire>();
-            //foreach (var item in producX)
-            //{
-            //    TransactionRequire Tran = new TransactionRequire();
-            //    Tran.transactionID = item.transactionID;
-            //    Tran.transactionTypeID = item.transactionTypeID;
-            //    Tran.transactionTypeName = item.transacType.nameTransaction;
-            //    Tran.productIDOrigin = item.productIDOrigin;
-            //    Tran.productIDDestination = item.productIDDestination;
-            //    Tran.transactionValue = item.transactionValue;
-            //    Tran.transactionDate = item.transactionDate;
-            //    Ltran.Add(Tran);
-            //}
-            //return Ltran;
             return _transactionsBusiness.GetTransactionRequireByProductID(productid);
 
         }
