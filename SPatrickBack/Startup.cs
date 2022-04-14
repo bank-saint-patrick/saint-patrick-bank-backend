@@ -116,8 +116,8 @@ namespace SPatrickBack
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             app.UseCors(options => {
-                options.WithOrigins("http://*");
-                options.WithOrigins("https://*");
+                //options.WithOrigins("http://*");
+                //options.WithOrigins("https://*");
                 options.AllowAnyOrigin();
                 options.AllowAnyMethod();
                 options.AllowAnyHeader();          
